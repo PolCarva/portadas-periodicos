@@ -175,9 +175,11 @@ const URLS: Record<string, ScrapeConfig[]> = {
 
 export async function GET() {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const results: Record<string, any[]> = {}
 
     for (const [country, configs] of Object.entries(URLS)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const covers: any[] = []
 
       for (const config of configs) {
@@ -187,7 +189,7 @@ export async function GET() {
           const $ = cheerio.load(html)
 
           if (config.multiple) {
-            const elements = config.followLinks 
+            const elements = config.followLinks
               ? $(config.selector)
               : $(config.selector + " img");
 
@@ -197,12 +199,12 @@ export async function GET() {
                 const link = $element.attr("href");
                 const baseUrl = new URL(config.url);
                 const fullUrl = new URL(link || "", baseUrl.origin);
-                
+
                 // Obtener la imagen de la página individual
                 const detailResponse = await fetch(fullUrl.toString());
                 const detailHtml = await detailResponse.text();
                 const $detail = cheerio.load(detailHtml);
-                
+
                 const img = $detail(config.followLinks.imageSelector);
                 const src = img.attr("src");
                 const alt = $element.find("img").attr("alt");

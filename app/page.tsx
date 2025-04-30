@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { NewspaperGrid } from "@/components/newspaper-grid"
 import { CountrySelector } from "@/components/country-selector"
 

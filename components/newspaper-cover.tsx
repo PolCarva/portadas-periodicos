@@ -11,7 +11,7 @@ interface NewspaperCoverProps {
   isPreview?: boolean
 }
 
-export function NewspaperCover({ title, imageUrl, previewImageUrl, isPreview }: NewspaperCoverProps) {
+export function NewspaperCover({ title, imageUrl, previewImageUrl }: NewspaperCoverProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -41,6 +41,7 @@ export function NewspaperCover({ title, imageUrl, previewImageUrl, isPreview }: 
               onLoad={() => setIsLoading(false)}
               onError={() => {
                 setError(true)
+                console.error(`Error loading image for ${title}:`, error)
                 setIsLoading(false)
               }}
             />
