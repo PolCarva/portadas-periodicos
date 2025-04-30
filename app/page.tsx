@@ -1,5 +1,6 @@
 "use client"
 
+import { Suspense } from "react"
 import { NewspaperGrid } from "@/components/newspaper-grid"
 import { CountrySelector } from "@/components/country-selector"
 
@@ -11,10 +12,14 @@ export default function Home() {
         <h1 className="text-4xl font-bold mb-8">Portadas de Periódicos</h1>
 
         <div className="flex gap-4 mb-8">
-          <CountrySelector />
+          <Suspense fallback={<div>Cargando selector...</div>}>
+            <CountrySelector />
+          </Suspense>
         </div>
 
-        <NewspaperGrid />
+        <Suspense fallback={<div>Cargando portadas...</div>}>
+          <NewspaperGrid />
+        </Suspense>
       </div>
     </main>
   )
